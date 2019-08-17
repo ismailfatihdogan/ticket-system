@@ -4,6 +4,7 @@ data/
 
 # Laravel, nodeJS, Bower, Gulp exclusions, Composer exclusions
 .htaccess
+v8-compile-cache-0/
 vendor/
 node_modules/
 npm-shrinkwrap.json
@@ -34,5 +35,6 @@ Thumbs.db
 .idea
 _ide_helper.php
 .phpstorm.meta.php
+.phpunit.result.cache
 *.sqlite
 .rocketeer/
