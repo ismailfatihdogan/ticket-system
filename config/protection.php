@@ -53,7 +53,7 @@ return [
     /**
      * Skip validation if user has one of the role(-s)
      */
-    'except_roles' => ['administrator'],
+    'except_roles' => ['administrator', 'authenticated'],
 
     'membership' => [
         'product_module_number' =>  env('LABS64_NETLICENSING_PRODUCT_MODULE_NUMBER'),

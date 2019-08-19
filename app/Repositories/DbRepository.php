@@ -7,11 +7,9 @@
  * @package App\Repositories
  */
 
+use App\Exceptions\GeneralException;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Collection as SupportCollection;
 
 Abstract class DbRepository
 {

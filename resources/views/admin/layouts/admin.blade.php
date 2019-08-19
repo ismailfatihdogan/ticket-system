@@ -33,7 +33,7 @@
             </footer>
         </div>
     </div>
-@stop
+@endsection
 
 @section('styles')
     {{ Html::style(mix('assets/admin/css/admin.css')) }}
