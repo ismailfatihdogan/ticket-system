@@ -1,5 +1,4 @@
 const mix = require('laravel-mix');
-
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -60,12 +59,17 @@ mix.styles([
 mix.scripts([
     'node_modules/bootstrap/dist/js/bootstrap.js',
     'node_modules/gentelella/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js',
-    'node_modules/gentelella/build/js/custom.js',
+    'node_modules/gentelella/vendors/pnotify/dist/pnotify.js',
+    'node_modules/gentelella/src/js/helpers/smartresize.js',
+    'node_modules/select2/dist/js/select2.full.min.js',
+    'node_modules/gentelella/src/js/custom.js',
 ], 'public/assets/admin/js/admin.js').version();
 
 mix.styles([
     'node_modules/bootstrap/dist/css/bootstrap.css',
     'node_modules/gentelella/vendors/animate.css/animate.css',
+    'node_modules/gentelella/vendors/pnotify/dist/pnotify.css',
+    'node_modules/select2/dist/css/select2.css',
     'node_modules/gentelella/build/css/custom.css',
 ], 'public/assets/admin/css/admin.css').version();
 
@@ -74,14 +78,38 @@ mix.copy([
     'node_modules/gentelella/vendors/bootstrap/dist/fonts',
 ], 'public/assets/admin/fonts');
 
+mix.scripts([
+    'node_modules/gentelella/vendors/datatables.net/js/jquery.dataTables.min.js',
+    'resources/assets/admin/js/dataTables.checkboxes.min.js',
+    'node_modules/gentelella/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js',
+], 'public/assets/admin/js/datatables.js').version();
+
+mix.styles([
+    'node_modules/gentelella/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css',
+    'resources/assets/admin/css/datatable.checkbox.css'
+], 'public/assets/admin/css/datatables.css').version();
 
 mix.scripts([
-    'node_modules/select2/dist/js/select2.full.js',
+    'resources/assets/admin/js/tickets/index.js',
+], 'public/assets/admin/js/tickets/index.js').version();
+
+mix.scripts([
+    'node_modules/gentelella/vendors/google-code-prettify/src/prettify.js',
+    'node_modules/gentelella/vendors/google-code-prettify/src/run_prettify.js',
+    'node_modules/gentelella/vendors/bootstrap-wysiwyg/src/bootstrap-wysiwyg.js',
+    'node_modules/gentelella/vendors/switchery/dist/switchery.min.js',
+    'resources/assets/admin/js/tickets/create-or-update.js',
+], 'public/assets/admin/js/tickets/create-or-update.js').version();
+
+mix.styles([
+    'node_modules/gentelella/vendors/switchery/dist/switchery.min.css'
+], 'public/assets/admin/css/tickets/create-or-update.css').version();
+
+mix.scripts([
     'resources/assets/admin/js/users/edit.js',
 ], 'public/assets/admin/js/users/edit.js').version();
 
 mix.styles([
-    'node_modules/select2/dist/css/select2.css',
 ], 'public/assets/admin/css/users/edit.css').version();
 
 mix.scripts([

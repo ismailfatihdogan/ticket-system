@@ -31,6 +31,8 @@
         "laravel/socialite": "^4.1",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "5.8.*",
+        "wildside/userstamps": "^0.5.5",
+        "yajra/laravel-datatables-html": "^4.5",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
@@ -68,6 +70,11 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
+        ],
+        "post-update-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "php artisan ide-helper:generate",
+            "php artisan ide-helper:meta"
         ]
     },
     "config": {

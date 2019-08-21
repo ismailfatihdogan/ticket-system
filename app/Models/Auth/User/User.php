@@ -4,6 +4,8 @@ namespace App\Models\Auth\User;
 
 use App\Models\Auth\User\Traits\Ables\Protectable;
 use App\Models\Auth\User\Traits\Attributes\UserAttributes;
+use App\Models\Ticket\Tag;
+use App\Models\Ticket\Ticket;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -89,4 +91,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class, 'created_by');
+    }
+
+    public function tags()
+    {
+        return $this->hasMany(Tag::class, 'created_by');
+    }
 }

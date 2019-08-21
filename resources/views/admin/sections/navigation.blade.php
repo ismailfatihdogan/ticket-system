@@ -38,6 +38,12 @@
                 <h3>{{ __('views.backend.section.navigation.sub_header_1') }}</h3>
                 <ul class="nav side-menu">
                     <li>
+                        <a href="{{route('admin.tickets.index')}}">
+                            <i class="fa fa-file-text" aria-hidden="true"></i>
+                            {{ __('views.backend.section.navigation.menu_1_4') }}
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('admin.users') }}">
                             <i class="fa fa-users" aria-hidden="true"></i>
                             {{ __('views.backend.section.navigation.menu_1_1') }}
@@ -54,39 +60,6 @@
                             {{ __('views.backend.section.navigation.menu_1_2') }}
                         </a>
                     </li>
-                </ul>
-            </div>
-            <div class="menu_section">
-                <h3>{{ __('views.backend.section.navigation.sub_header_2') }}</h3>
-
-                <ul class="nav side-menu">
-                    <li>
-                        <a>
-                            <i class="fa fa-list"></i>
-                            {{ __('views.backend.section.navigation.menu_2_1') }}
-                            <span class="fa fa-chevron-down"></span>
-                        </a>
-                        <ul class="nav child_menu">
-                            <li>
-                                <a href="{{ route('log-viewer::dashboard') }}">
-                                    {{ __('views.backend.section.navigation.menu_2_2') }}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('log-viewer::logs.list') }}">
-                                    {{ __('views.backend.section.navigation.menu_2_3') }}
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <div class="menu_section">
-                <h3>{{ __('views.backend.section.navigation.sub_header_3') }}</h3>
-                <ul class="nav side-menu">
-                  <li>
-                      <a href="http://netlicensing.io/?utm_source=Laravel_Boilerplate&utm_medium=github&utm_campaign=laravel_boilerplate&utm_content=credits" target="_blank" title="Online Software License Management"><i class="fa fa-lock" aria-hidden="true"></i>NetLicensing</a>
-                  </li>
                 </ul>
             </div>
         </div>
