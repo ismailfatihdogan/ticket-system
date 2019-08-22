@@ -9,47 +9,62 @@ use App\Http\Requests\Tickets\ChangeTicketsStatus;
 use App\Http\Requests\Tickets\StoreRequest;
 use App\Http\Requests\Tickets\UpdateRequest;
 use App\Models\Ticket\Ticket;
-use App\Repositories\Interfaces\TagRepositoryInterface;
-use App\Repositories\Interfaces\TicketRepositoryInterface;
+use App\Repositories\Interfaces\ITagRepository;
+use App\Repositories\Interfaces\ITicketRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 
 class TicketController extends Controller
 {
     /**
-     * Repository
+     * |Repository
      *
-     * @var TicketRepositoryInterface $repository
+     * @var ITicketRepository $repository
      */
-    protected $repository, $dataTable;
+    protected $repository, $tagRepository, $dataTable;
 
     /**
      * Construct
-     * @param TicketRepositoryInterface $ticketRepository
+     * @param ITicketRepository $ticketRepository
+     * @param ITagRepository $tagRepository
      */
-    public function __construct(TicketRepositoryInterface $ticketRepository)
+    public function __construct(ITicketRepository $ticketRepository, ITagRepository $tagRepository)
     {
         $this->repository = $ticketRepository;
+        $this->tagRepository = $tagRepository;
     }
 
     /**
      * Display a listing of the resource.
      *
+     * @param $id
      * @return View
      */
     public function index()
     {
-        return view('admin.tickets.index');
+        return view('admin.tickets.index', ['datatableSource' => route('admin.tickets.datatable')]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param $id
+     * @return View
+     */
+    public function tag($id)
+    {
+        return view('admin.tickets.index', ['datatableSource' => route('admin.tickets.datatable', $id)]);
     }
 
     /**
      * Process datatables ajax request.
      *
+     * @param null $tagId
      * @return JsonResponse
      */
-    public function datatable()
+    public function datatable($tagId = null)
     {
-        return $this->repository->dataTableSource();
+        return $this->repository->dataTableSource($tagId);
     }
 
     public function show($id)
@@ -66,7 +81,7 @@ class TicketController extends Controller
     {
         return view('admin.tickets.create', [
             'ticket' => $this->repository->getModel(),
-            'tags'   => app(TagRepositoryInterface::class)->dropdownList()
+            'tags'   => app(ITagRepository::class)->dropdownList()
         ]);
     }
 
@@ -83,7 +98,7 @@ class TicketController extends Controller
     {
         return view('admin.tickets.edit', [
             'ticket'     => $this->repository->show($id),
-            'tags'       => app(TagRepositoryInterface::class)->dropdownList(),
+            'tags'       => app(ITagRepository::class)->dropdownList(),
             'ticketTags' => $this->repository->getTagNames()
         ]);
     }
@@ -115,7 +130,7 @@ class TicketController extends Controller
 
     public function changeTicketsStatus(ChangeTicketsStatus $request)
     {
-        if($this->repository->changeTicketsStatus($request->get('status'), $request->get('tickets'))){
+        if ($this->repository->changeTicketsStatus($request->get('status'), $request->get('tickets'))) {
             return response()->json(['status' => true, 'message' => __('views.admin.ticket.status_changed')]);
         }
 

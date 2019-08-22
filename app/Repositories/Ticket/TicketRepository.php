@@ -5,16 +5,20 @@ namespace App\Repositories\Ticket;
 
 
 use App\Models\Ticket\Ticket;
-use App\Repositories\Interfaces\TagRepositoryInterface;
-use App\Repositories\Interfaces\TicketRepositoryInterface;
+use App\Repositories\Interfaces\IDatatableRepository;
+use App\Repositories\Interfaces\ITagRepository;
+use App\Repositories\Interfaces\ITicketRepository;
 use App\Repositories\Repository;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
 use Yajra\DataTables\Html\Builder as DataTableBuilder;
 
-class TicketRepository extends Repository implements TicketRepositoryInterface
+class TicketRepository extends Repository implements ITicketRepository
 {
     protected $dataTableBuilder, $dataTables;
 
@@ -22,7 +26,7 @@ class TicketRepository extends Repository implements TicketRepositoryInterface
      * TicketRepository constructor.
      * @param Ticket $ticket
      * @param DataTableBuilder $builder
-     * @param DataTables $dataTable
+     * @param DataTables $dataTables
      */
     public function __construct(Ticket $ticket, DataTableBuilder $builder, Datatables $dataTables)
     {
@@ -47,13 +51,35 @@ class TicketRepository extends Repository implements TicketRepositoryInterface
         return false;
     }
 
-    public function get($id)
+    private function getQuery()
     {
         return $this->with([
             'tags' => function (BelongsToMany $builder) {
                 $builder->select('name');
             }
-        ])->findOrFail($id);
+        ]);
+    }
+
+    public function get($id)
+    {
+        return $this->getQuery()->findOrFail($id);
+    }
+
+    /**
+     * @param int $limit
+     * @return TicketRepository|TicketRepository[]|Builder|Builder[]|Collection|Model
+     */
+    public function lastTickets($limit = 10)
+    {
+        return $this->getQuery()->orderBy('id', 'desc')->limit($limit)->get();
+    }
+
+    public function oldTickets($days = 7, $limit = 10)
+    {
+        $time = Carbon::now()->subDays(0)->timestamp;
+
+        return $this->getQuery()->where('status', false)->where('created_at', '<',
+                $time)->orderBy('created_at')->limit($limit)->get();
     }
 
     public function saveTags($tags)
@@ -61,7 +87,7 @@ class TicketRepository extends Repository implements TicketRepositoryInterface
         $tagList = [];
 
         foreach ($tags as $tag) {
-            $tag = app(TagRepositoryInterface::class)->store($tag);
+            $tag = app(ITagRepository::class)->store($tag);
 
             $tagList[] = $tag->id;
         }
@@ -88,9 +114,11 @@ class TicketRepository extends Repository implements TicketRepositoryInterface
         return $this->model->whereIn('id', $tickets)->update(['status' => $status === $this->model::COMPLETED]);
     }
 
-    public function dataTableSource()
+
+    public function dataTableSource($tagId)
     {
-        return $this->dataTables->eloquent($this->model->select([
+        /** @var Builder $ticketBuilder */
+        $ticketBuilder = $this->model->select([
             'id',
             'title',
             'content',
@@ -99,7 +127,16 @@ class TicketRepository extends Repository implements TicketRepositoryInterface
             'created_by',
             'updated_at',
             'updated_by'
-        ]))->addColumn('tags', function (Ticket $ticket) {
+        ]);
+
+        if ($tagId) {
+            $ticketBuilder->whereHas('tags', function (Builder $belongsToMany) use ($tagId) {
+                    $belongsToMany->where('id', $tagId);
+                }
+            );
+        }
+
+        return $this->dataTables->eloquent($ticketBuilder)->addColumn('tags', function (Ticket $ticket) {
             return $ticket->tags()->pluck('name')->implode(', ');
         })->addColumn('action', function (Ticket $ticket) {
             return \Html::link(route('admin.tickets.edit', $ticket->id), '<i class="fa fa-pencil"></i>',
@@ -126,7 +163,7 @@ class TicketRepository extends Repository implements TicketRepositoryInterface
                     'title'   => __('views.admin.delete')
                 ]));
         })->filterColumn('status', function (Builder $query, $keyword) {
-            if(!empty($keyword)){
+            if (!empty($keyword)) {
                 $query->where('status', $keyword === $this->model::COMPLETED);
             }
         })->make(true);

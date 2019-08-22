@@ -15,7 +15,7 @@ $(function () {
         }
 
         if (element.data('column') === 'status') {
-            element.html($('#select-status').clone().attr('id', 'filter-' + title.toLowerCase()));
+            element.html($('#select-status').clone().attr('id', 'filter-' + title.toLowerCase()))
         } else {
             element.html('<input type="text" class="form-control" placeholder="Search ' + title + '" />');
         }
@@ -36,7 +36,7 @@ $(function () {
         processing: true,
         serverSide: true,
         ajax: {
-            url: '/admin/tickets/datatable',
+            url: $('#tickets-table').data('source'),
             type: 'post',
             data: {'_token': token}
         },

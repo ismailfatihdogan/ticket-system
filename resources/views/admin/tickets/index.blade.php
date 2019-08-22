@@ -10,11 +10,11 @@
             {{__('views.admin.tickets.create.title')}}
         </a>
     </div>
-    <table class="table table-bordered" id="tickets-table">
+    <table class="table table-bordered" id="tickets-table" data-source="{{ $datatableSource }}">
         <thead>
         <tr>
             <th></th>
-            <th>{{__('views.admin.ticket.title')}}</th>
+            <th>{{__('views.admin.title')}}</th>
             <th>{{__('views.admin.ticket.content')}}</th>
             <th>{{__('views.admin.ticket.tags')}}</th>
             <th data-column="status">{{__('views.admin.ticket.status')}}</th>
@@ -28,7 +28,7 @@
     </table>
     <div class="form-group">
         <div class="col-md-2">
-            <select id="select-status" class="form-control">
+            <select id="select-status" class="form-control select2">
                 <option value="">{{__('views.admin.select_choice')}}</option>
                 <option value="completed">{{__('views.admin.ticket.completed')}}</option>
                 <option value="processing">{{__('views.admin.ticket.processing')}}</option>

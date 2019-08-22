@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
+use App\Repositories\Interfaces\ITagRepository;
+use App\Repositories\Interfaces\ITicketRepository;
+use App\Repositories\Interfaces\IUserRepository;
 use App\Repositories\User\UserRepository;
-use App\Repositories\Interfaces\TagRepositoryInterface;
-use App\Repositories\Interfaces\TicketRepositoryInterface;
-use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\Ticket\TagRepository;
 use App\Repositories\Ticket\TicketRepository;
 use Illuminate\Support\ServiceProvider;
@@ -19,9 +19,9 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
-        $this->app->bind(TicketRepositoryInterface::class, TicketRepository::class);
-        $this->app->bind(TagRepositoryInterface::class, TagRepository::class);
+        $this->app->bind(IUserRepository::class, UserRepository::class);
+        $this->app->bind(ITicketRepository::class, TicketRepository::class);
+        $this->app->bind(ITagRepository::class, TagRepository::class);
     }
 
     /**

@@ -4,12 +4,12 @@
 namespace App\Repositories;
 
 
-use App\Repositories\Interfaces\RepositoryInterface;
+use App\Repositories\Interfaces\IRepository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-class Repository implements RepositoryInterface
+class Repository implements IRepository
 {
     /**
      * @var Model|Builder $model
@@ -120,6 +120,17 @@ class Repository implements RepositoryInterface
         $this->model = $model;
 
         return $this;
+    }
+
+    /**
+     * Retrieve the "count" result of the query.
+     *
+     * @param array $where
+     * @return int
+     */
+    public function count($where=[])
+    {
+        return $this->model->where($where)->count();
     }
 
     /**

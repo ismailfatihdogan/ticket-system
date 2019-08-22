@@ -70,11 +70,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('dashboard/registration-chart', 'DashboardController@getRegistrationChartData')->name('dashboard.registration.chart');
 
     //Ticket Datatable Ajax Source
-    Route::post('tickets/datatable', 'TicketController@datatable')->name('tickets.datatable');
+    Route::post('tickets/datatable/{tagId?}', 'TicketController@datatable')->name('tickets.datatable');
     Route::post('tickets/change-tickets-status', 'TicketController@changeTicketsStatus')->name('tickets.change-tickets-status');
 
     //Ticket Routes
     Route::resource('tickets', 'TicketController');
+    Route::get('tickets/tag/{id}', 'TicketController@tag')->name('tickets.tag');
 });
 
 

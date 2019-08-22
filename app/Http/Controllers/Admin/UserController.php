@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Exceptions\GeneralException;
 use App\Models\Auth\Role\Role;
 use App\Models\Auth\User\User;
-use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\Interfaces\IUserRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
@@ -14,17 +14,17 @@ use Illuminate\View\View;
 class UserController extends Controller
 {
     /**
-     * Repository
+     * |Repository
      *
-     * @var UserRepositoryInterface
+     * @var IUserRepository
      */
     protected $repository;
 
     /**
      * Construct
-     * @param UserRepositoryInterface $userRepository
+     * @param IUserRepository $userRepository
      */
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(IUserRepository $userRepository)
     {
         $this->repository = $userRepository;
     }

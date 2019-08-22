@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-interface RepositoryInterface
+interface IRepository
 {
     /**
      * Get all of the models from the database.
@@ -82,6 +82,15 @@ interface RepositoryInterface
      * @return $this
      */
     public function setModel($model);
+
+
+    /**
+     * Retrieve the "count" result of the query.
+     *
+     * @param array $where
+     * @return int
+     */
+    public function count($where=[]);
 
     /**
      * Eager load database relationships

@@ -2,8 +2,11 @@
 
 namespace App\Repositories\Interfaces;
 
-interface TagRepositoryInterface extends RepositoryInterface
+interface ITagRepository extends IRepository
 {
+
+    public function getMostTickets();
+
     /**
      * @param string $name
      * @return mixed

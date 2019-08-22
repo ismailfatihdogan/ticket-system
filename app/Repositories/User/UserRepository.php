@@ -4,7 +4,7 @@ namespace App\Repositories\User;
 
 use App\Exceptions\GeneralException;
 use App\Models\Auth\User\User;
-use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\Interfaces\IUserRepository;
 use App\Repositories\Repository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 /**
  * Class UserRepository
  */
-class UserRepository extends Repository implements UserRepositoryInterface
+class UserRepository extends Repository implements IUserRepository
 {
 
     public function __construct(User $user)

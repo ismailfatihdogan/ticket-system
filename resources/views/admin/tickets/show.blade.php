@@ -12,7 +12,7 @@
         <table class="table table-striped table-hover">
             <tbody>
             <tr>
-                <th>{{ __('views.admin.ticket.title') }}</th>
+                <th>{{ __('views.admin.title') }}</th>
                 <td>{{ $ticket->title }}</td>
             </tr>
 
