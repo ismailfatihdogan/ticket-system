@@ -24,7 +24,7 @@ Now you can browse the site at [http://localhost:8080](http://localhost:8080)  ð
 Here is a Docker based local development environment prepared, which provides a very flexible and extensible way of building your custom Laravel 5 applications.
 
 ### What's Inside
-This project is based on [docker-compose](https://docs.docker.com/compose/). By default, the following containers are started: _laravel-env (centos:7 based), mysql, nginx_. Additional containers (_phpmyadmin, mailhog_) are externalized into `docker-compose.utils.yml`. The `/var/www/laravel-boilerplate` directory is the web root which is mapped to the nginx container.
+This project is based on [docker-compose](https://docs.docker.com/compose/). By default, the following containers are started: _laravel-env (centos:7 based), mysql, nginx_. Additional containers (_phpmyadmin, mailhog_) are externalized into `docker-compose.utils.yml`. The `/var/www/ticket-system` directory is the web root which is mapped to the nginx container.
 You can directly edit configuration files from within the repo as they are mapped to the correct locations in containers.
 
 <p align="center"><img src="https://raw.githubusercontent.com/Labs64/laravel-boilerplate/master/dockerfiles/img/laravel-boilerplate-docker.png" alt="Laravel Boilerplate Docker"></p>
@@ -38,7 +38,7 @@ To be able to run Laravel Boilerplate you have to meet the following requirement
 
 1. Copy `.env.example` to `.env` and modify according to your environment (make sure database host set to `DB_HOST=mysql`)
 ```
-$ cp project.env .env
+$ cp env.example .env
 ```
 
 2. Start environment
@@ -50,7 +50,7 @@ $ docker-compose -f docker-compose.yml -f docker-compose.utils.yml up -d  # to s
 
 3. Build project
 ```
-$ docker-compose run --rm ticket-system_laravel-env_1 ./dockerfiles/bin/prj-build.sh
+$ docker-compose run --rm laravel-env ./dockerfiles/bin/prj-build.sh
 ```
 
 Now you can browse the site at [http://localhost:80](http://localhost:80)  ðŸ™Œ
