@@ -42,10 +42,6 @@ Route::group(['namespace' => 'Auth'], function () {
         Route::get('confirm/{user_by_code}', 'ConfirmController@confirm')->name('confirm');
         Route::get('confirm/resend/{user_by_email}', 'ConfirmController@sendEmail')->name('confirm.send');
     }
-
-    // Social Authentication Routes...
-    Route::get('social/redirect/{provider}', 'SocialLoginController@redirect')->name('social.redirect');
-    Route::get('social/login/{provider}', 'SocialLoginController@login')->name('social.login');
 });
 
 /**
@@ -57,17 +53,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('/', 'DashboardController@index')->name('dashboard');
 
     //Users
-    Route::get('users', 'UserController@index')->name('users');
     Route::get('users/restore', 'UserController@restore')->name('users.restore');
     Route::get('users/{id}/restore', 'UserController@restoreUser')->name('users.restore-user');
-    Route::get('users/{user}', 'UserController@show')->name('users.show');
-    Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit');
-    Route::put('users/{user}', 'UserController@update')->name('users.update');
-    Route::any('users/{id}/destroy', 'UserController@destroy')->name('users.destroy');
+    Route::get('users/{id}/destroy', 'UserController@destroy')->name('users.destroy');
+    Route::resource('users', 'UserController')->except(['destroy']);
     Route::get('permissions', 'PermissionController@index')->name('permissions');
     Route::get('permissions/{user}/repeat', 'PermissionController@repeat')->name('permissions.repeat');
-    Route::get('dashboard/log-chart', 'DashboardController@getLogChartData')->name('dashboard.log.chart');
-    Route::get('dashboard/registration-chart', 'DashboardController@getRegistrationChartData')->name('dashboard.registration.chart');
 
     //Ticket Datatable Ajax Source
     Route::post('tickets/datatable/{tagId?}', 'TicketController@datatable')->name('tickets.datatable');

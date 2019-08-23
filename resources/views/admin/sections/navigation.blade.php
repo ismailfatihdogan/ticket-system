@@ -44,7 +44,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.users') }}">
+                        <a href="{{ route('admin.users.index') }}">
                             <i class="fa fa-users" aria-hidden="true"></i>
                             {{ __('views.backend.section.navigation.menu_1_1') }}
                         </a>

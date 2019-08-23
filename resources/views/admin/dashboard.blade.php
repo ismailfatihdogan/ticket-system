@@ -132,7 +132,7 @@
             <tbody>
             @foreach($tagMostTickets as $tag)
                 <tr>
-                    <td>{{Html::linkRoute('admin.tags.tickets', $tag->name, $tag->id)}}</td>
+                    <td>{{Html::linkRoute('admin.tickets.tag', $tag->name, $tag->id)}}</td>
                     <td>{{$tag->tickets_count}}</td>
                     <td>{{$tag->creator()->value('name')}}</td>
                     <td>{{$tag->created_at}}</td>

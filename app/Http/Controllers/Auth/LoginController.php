@@ -61,6 +61,16 @@ class LoginController extends Controller
         return redirect('/');
     }
 
+    public function redirectTo()
+    {
+        if(isAdmin())
+        {
+            return route('admin.dashboard');
+        }
+
+        return redirect('/');
+    }
+
     /**
      * Get the failed login response instance.
      *

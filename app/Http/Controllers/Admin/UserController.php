@@ -35,7 +35,7 @@ class UserController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
         return view('admin.users.index', ['users' => $this->repository->getSortableListViaPagination()]);
     }
@@ -43,10 +43,9 @@ class UserController extends Controller
     /**
      * Restore Users
      *
-     * @param Request $request
      * @return Response
      */
-    public function restore(Request $request)
+    public function restore()
     {
         return view('admin.users.restore', ['users' => $this->repository->getTrashedListViaPagination()]);
     }
@@ -60,10 +59,10 @@ class UserController extends Controller
     public function restoreUser($id)
     {
         if ($this->repository->restore($id)) {
-            return redirect()->route('admin.users')->withFlashSuccess('User Restored Successfully!');
+            return redirect()->route('admin.users.index')->withFlashSuccess('User Restored Successfully!');
         }
 
-        return redirect()->route('admin.users')->withFlashDanger('Unable to Restore User!');
+        return redirect()->route('admin.users.index')->withFlashDanger('Unable to Restore User!');
     }
 
     /**
@@ -111,9 +110,9 @@ class UserController extends Controller
     public function destroy($id)
     {
         if ($this->repository->destroy($id)) {
-            return redirect()->route('admin.users')->withFlashSuccess('User Deleted Successfully!');
+            return redirect()->route('admin.users.index')->withFlashSuccess('User Deleted Successfully!');
         }
 
-        return redirect()->route('admin.users')->withFlashDanger('Unable to Delete User!');
+        return redirect()->route('admin.users.index')->withFlashDanger('Unable to Delete User!');
     }
 }

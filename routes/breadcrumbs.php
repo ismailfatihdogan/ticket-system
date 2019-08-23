@@ -11,14 +11,14 @@ Breadcrumbs::register('admin.users', function (Generator $breadcrumbs) {
 
 Breadcrumbs::register('admin.users.show', function (Generator $breadcrumbs, $id) {
     $breadcrumbs->push(__('views.admin.dashboard.title'), route('admin.dashboard'));
-    $breadcrumbs->push(__('views.admin.users.index.title'), route('admin.users'));
+    $breadcrumbs->push(__('views.admin.users.index.title'), route('admin.users.index'));
     $breadcrumbs->push(__('views.admin.users.show.title', ['name' => User::where('id', $id)->value('name')]));
 });
 
 
 Breadcrumbs::register('admin.users.edit', function (Generator $breadcrumbs, $id) {
     $breadcrumbs->push(__('views.admin.dashboard.title'), route('admin.dashboard'));
-    $breadcrumbs->push(__('views.admin.users.index.title'), route('admin.users'));
+    $breadcrumbs->push(__('views.admin.users.index.title'), route('admin.users.index'));
     $breadcrumbs->push(__('views.admin.users.edit.title', ['name' => User::where('id', $id)->value('name')]));
 });
 
