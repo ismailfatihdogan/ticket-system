@@ -5,7 +5,6 @@ namespace App\Repositories\Ticket;
 
 
 use App\Models\Ticket\Ticket;
-use App\Repositories\Interfaces\IDatatableRepository;
 use App\Repositories\Interfaces\ITagRepository;
 use App\Repositories\Interfaces\ITicketRepository;
 use App\Repositories\Repository;
@@ -76,7 +75,7 @@ class TicketRepository extends Repository implements ITicketRepository
 
     public function oldTickets($days = 7, $limit = 10)
     {
-        $time = Carbon::now()->subDays(0)->timestamp;
+        $time = Carbon::now()->subDays($days)->timestamp;
 
         return $this->getQuery()->where('status', false)->where('created_at', '<',
                 $time)->orderBy('created_at')->limit($limit)->get();
