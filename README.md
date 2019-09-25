@@ -8,6 +8,30 @@
 # Laravel 5 Boilerplate Ticket System Project
 
 A simplified demand generation and management system written in Laravel 5.8
+##Environments Install
+```
+# Install dependencies
+composer install --prefer-dist --no-interaction
+
+
+# Verify environment config
+
+# Linux or macOS System Copy
+$ cp .env.example .env
+
+#Windows System Copy
+$ copy .env.example .env
+
+# Generate application key
+php artisan key:generate
+
+# Install dependencies
+npm install
+npm run dev
+
+# Create database tables and populate seed data
+php artisan migrate --seed --no-interaction
+```
 ## Run
 
 To start the PHP built-in server
