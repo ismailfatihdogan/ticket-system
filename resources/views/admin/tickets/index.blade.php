@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 
-@section('title', __('views.admin.tags.index.title'))
+@section('title', __('views.admin.tickets.index.title'))
 
 @section('content')
     <div class="row pull-right">
